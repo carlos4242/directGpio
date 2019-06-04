@@ -7,10 +7,10 @@ Conflicts=shutdown.target
 
 [Service]
 Type=forking
-User=carlpeto
+User=dgpio
 TimeoutSec=5min
 LimitCORE=infinity
-ExecStart=/usr/local/bin/dgpio -f /var/run/dgpio -d /var/log/dgpio.stats -l /var/log/dgpio.log --disable dimmer
+ExecStart=/usr/local/bin/dgpio -f /var/run/dgpio/dgpio -d /var/log/dgpio/dgpio.stats -l /var/log/dgpio/dgpio.log --disable dimmer
 WorkingDirectory=/
 
 [Install]
