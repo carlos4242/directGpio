@@ -203,7 +203,7 @@ void *flasher(void *pptr)
       bool oldValue = pin->lastState;
       if (currentValue != oldValue && pin->rising == currentValue) {
         daemonLog("pin edge detected, sending SIGHUP to %d\n",pin->trackingPid);
-        if (kill(pin->trackingPid, SIGHUP)) {
+        if (kill(pin->trackingPid, SIGUSR1)) {
           // signal transmit failed
           daemonLog("error, sending SIGHUP: %s\n",strerror(errno));
         }
