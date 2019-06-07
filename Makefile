@@ -16,7 +16,13 @@ macTests: directGpio.c
 clean:
 	rm -f *.o dgpio macTests directGpio directGpio2 macTests2 macClang*
 
-install:
+check-root:
+ifneq ($(shell id -u),0)
+	@echo "Please run as root user"
+	@exit 1
+endif
+
+install: check-root
 	useradd -r -G gpio dgpio
 	cp dgpio /usr/local/bin/
 	cp dgpio.service /etc/systemd/system/
@@ -27,7 +33,7 @@ install:
 	systemctl enable dgpio.service
 	systemctl start dgpio.service
 
-uninstall:
+uninstall: check-root
 	-systemctl disable dgpio.service
 	-systemctl stop dgpio.service
 	-userdel dgpio

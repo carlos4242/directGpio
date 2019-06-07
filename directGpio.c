@@ -202,10 +202,10 @@ void *flasher(void *pptr)
       bool currentValue = GPIO_READ(pin->pin);
       bool oldValue = pin->lastState;
       if (currentValue != oldValue && pin->rising == currentValue) {
-        daemonLog("pin edge detected, sending SIGHUP to %d\n",pin->trackingPid);
+        daemonLog("pin edge detected, sending SIGUSR1 to %d\n",pin->trackingPid);
         if (kill(pin->trackingPid, SIGUSR1)) {
           // signal transmit failed
-          daemonLog("error, sending SIGHUP: %s\n",strerror(errno));
+          daemonLog("error, sending SIGUSR1: %s\n",strerror(errno));
         }
       }
       pin->lastState = currentValue;
